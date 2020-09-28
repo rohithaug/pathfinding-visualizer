@@ -61,7 +61,7 @@
   }
 }
 
-@media (max-width: 650px) {
+@media (max-width: 635px) {
   .navbar-brand {
     font-size: 10px;
   }
@@ -76,9 +76,26 @@
   }
 }
 
-@media (max-width: 500px) {
+@media (max-width: 575px) {
   .navbar-brand {
+    font-size: 9px;
+  }
+  .btn {
     font-size: 8px;
+    margin-left: 5px;
+    border: none;
+  }
+  .dropdown-menu {
+    font-size: 8px;
+    margin-left: 4px;
+    border: none;
+    background-color: #343a40;
+  }
+}
+
+@media (max-width: 510px) {
+  .navbar-brand {
+    font-size: 7px;
   }
   .btn {
     font-size: 7px;
@@ -88,6 +105,23 @@
   .dropdown-menu {
     font-size: 7px;
     margin-left: 3px;
+    border: none;
+    background-color: #343a40;
+  }
+}
+
+@media (max-width: 475px) {
+  .navbar-brand {
+    font-size: 7px;
+  }
+  .btn {
+    font-size: 6px;
+    margin-left: 2px;
+    border: none;
+  }
+  .dropdown-menu {
+    font-size: 6px;
+    margin-left: 2px;
     border: none;
     background-color: #343a40;
   }

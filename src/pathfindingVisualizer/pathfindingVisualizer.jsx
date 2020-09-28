@@ -35,7 +35,11 @@ import { randomMaze } from "../mazeAlgorithms/randomMaze";
 import { recursiveDivisionMaze } from "../mazeAlgorithms/recursiveDivision";
 import { verticalMaze } from "../mazeAlgorithms/verticalMaze";
 
-const startFinishNode = getStartFinishNode();
+const initialNum = getInitialNum(window.innerWidth, window.innerHeight);
+const initialNumRows = initialNum[0];
+const initialNumColumns = initialNum[1];
+
+const startFinishNode = getStartFinishNode(initialNumRows, initialNumColumns);
 const startNodeRow = startFinishNode[0];
 const startNodeCol = startFinishNode[1];
 const finishNodeRow = startFinishNode[2];
@@ -49,10 +53,8 @@ class PathfindingVisualizer extends Component {
     generatingMaze: false,
     width: window.innerWidth,
     height: window.innerHeight,
-    //numColumns: Math.floor(window.innerWidth / 25),
-    numColumns: 60,
-    //numRows: Math.floor(window.innerWidth / (30 * 2.5)),
-    numRows: 24,
+    numRows: initialNumRows,
+    numColumns: initialNumColumns,
   };
 
   updateDimensions = () => {
@@ -512,14 +514,38 @@ class PathfindingVisualizer extends Component {
   }
 }
 
-function getStartFinishNode() {
-  let randomNums = [-5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5];
-  const startNodeRow = 11 + randomNums[Math.floor(Math.random() * 11)];
-  const startNodeCol =
-    16 + randomNums.slice(0, 6)[Math.floor(Math.random() * 6)];
-  const finishNodeRow = 11 + randomNums[Math.floor(Math.random() * 11)];
+function getInitialNum(width, height) {
+  let numColumns;
+  if (width > 1500) {
+    numColumns = Math.floor(width / 25);
+  } else if (width > 1250) {
+    numColumns = Math.floor(width / 22.5);
+  } else if (width > 1000) {
+    numColumns = Math.floor(width / 20);
+  } else if (width > 750) {
+    numColumns = Math.floor(width / 17.5);
+  } else if (width > 500) {
+    numColumns = Math.floor(width / 15);
+  } else if (width > 250) {
+    numColumns = Math.floor(width / 12.5);
+  } else if (width > 0) {
+    numColumns = Math.floor(width / 10);
+  }
+  let cellWidth = Math.floor(width / numColumns);
+  let numRows = Math.floor(height / cellWidth);
+  return [numRows, numColumns];
+}
+
+function getStartFinishNode(numRows, numColumns) {
+  let x = Math.floor(numRows / 2);
+  let y = Math.floor(numColumns / 4);
+  console.log(x, y, x, numColumns - y);
+  let randomNums = [-3, -2, -1, 0, 1, 2, 3];
+  const startNodeRow = x + randomNums[Math.floor(Math.random() * 7)];
+  const startNodeCol = y + [-3, -2, -1, 0][Math.floor(Math.random() * 4)];
+  const finishNodeRow = x + randomNums[Math.floor(Math.random() * 7)];
   const finishNodeCol =
-    44 + randomNums.slice(5, 11)[Math.floor(Math.random() * 6)];
+    numColumns - y + [0, 1, 2, 3][Math.floor(Math.random() * 4)];
   return [startNodeRow, startNodeCol, finishNodeRow, finishNodeCol];
 }
 

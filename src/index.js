@@ -7,9 +7,9 @@ import "bootstrap/js/dist/dropdown";
 import PathfindingVisualizer from "./pathfindingVisualizer/pathfindingVisualizer";
 
 ReactDOM.render(
-  <React.StrictMode>
+  <React.Fragment>
     <PathfindingVisualizer />
-  </React.StrictMode>,
+  </React.Fragment>,
   document.getElementById("root")
 );
 

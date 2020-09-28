@@ -5,7 +5,7 @@
   position: absolute;
   left: 50%;
   margin-right: -50%;
-  transform: translate(-50%, 5%);
+  transform: translate(-50%, 2%);
   /*   top: 50%;
   left: 50%;
   margin-right: -50%;
@@ -19,5 +19,5 @@
   position: absolute;
   left: 50%;
   margin-right: -50%;
-  transform: translate(-50%, 5%);
+  transform: translate(-50%, 2%);
 }
