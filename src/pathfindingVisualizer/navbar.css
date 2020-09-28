@@ -1,0 +1,94 @@
+.navbar > .navbar-brand:hover,
+.navbar > .navbar-brand:focus {
+  color: rgb(175, 216, 248);
+}
+
+.btn {
+  margin-left: 40px;
+}
+
+.dropdown-menu {
+  margin-left: 40px;
+  background-color: #343a40;
+}
+
+.dropdown-item {
+  color: white;
+}
+
+@media (max-width: 1100px) {
+  .navbar-brand {
+    font-size: 15px;
+  }
+  .btn {
+    font-size: 14px;
+    margin-left: 30px;
+  }
+  .dropdown-menu {
+    font-size: 14px;
+    margin-left: 30px;
+    background-color: #343a40;
+  }
+}
+
+@media (max-width: 950px) {
+  .navbar-brand {
+    font-size: 13px;
+  }
+  .btn {
+    font-size: 12px;
+    margin-left: 20px;
+  }
+  .dropdown-menu {
+    font-size: 12px;
+    margin-left: 20px;
+    background-color: #343a40;
+  }
+}
+
+@media (max-width: 770px) {
+  .navbar-brand {
+    font-size: 11px;
+  }
+  .btn {
+    font-size: 10px;
+    margin-left: 10px;
+  }
+  .dropdown-menu {
+    font-size: 10px;
+    margin-left: 10px;
+    background-color: #343a40;
+  }
+}
+
+@media (max-width: 650px) {
+  .navbar-brand {
+    font-size: 10px;
+  }
+  .btn {
+    font-size: 9px;
+    margin-left: 6px;
+  }
+  .dropdown-menu {
+    font-size: 9px;
+    margin-left: 6px;
+    background-color: #343a40;
+  }
+}
+
+@media (max-width: 500px) {
+  .navbar-brand {
+    font-size: 8px;
+  }
+  .btn {
+    font-size: 7px;
+    margin-left: 3px;
+    border: none;
+  }
+  .dropdown-menu {
+    font-size: 7px;
+    margin-left: 3px;
+    border: none;
+    background-color: #343a40;
+  }
+}
