@@ -516,10 +516,10 @@ function getStartFinishNode() {
   let randomNums = [-5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5];
   const startNodeRow = 11 + randomNums[Math.floor(Math.random() * 11)];
   const startNodeCol =
-    16 + randomNums.slice(0, 6)[Math.floor(Math.random() * 6)];
+    16 + randomNums.slice(0, 5)[Math.floor(Math.random() * 5)];
   const finishNodeRow = 11 + randomNums[Math.floor(Math.random() * 11)];
   const finishNodeCol =
-    44 + randomNums.slice(5, 11)[Math.floor(Math.random() * 6)];
+    44 + randomNums.slice(5, 10)[Math.floor(Math.random() * 5)];
   return [startNodeRow, startNodeCol, finishNodeRow, finishNodeCol];
 }
 
