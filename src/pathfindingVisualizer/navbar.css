@@ -3,12 +3,16 @@
   color: rgb(175, 216, 248);
 }
 
+.navbar-brand {
+  margin-right: 40px;
+}
+
 .btn {
-  margin-left: 40px;
+  margin-right: 40px;
 }
 
 .dropdown-menu {
-  margin-left: 40px;
+  margin-right: 40px;
   background-color: #343a40;
 }
 
@@ -19,14 +23,15 @@
 @media (max-width: 1100px) {
   .navbar-brand {
     font-size: 15px;
+    margin-right: 30px;
   }
   .btn {
     font-size: 14px;
-    margin-left: 30px;
+    margin-right: 30px;
   }
   .dropdown-menu {
     font-size: 14px;
-    margin-left: 30px;
+    margin-right: 30px;
     background-color: #343a40;
   }
 }
@@ -34,14 +39,15 @@
 @media (max-width: 950px) {
   .navbar-brand {
     font-size: 13px;
+    margin-right: 20px;
   }
   .btn {
     font-size: 12px;
-    margin-left: 20px;
+    margin-right: 20px;
   }
   .dropdown-menu {
     font-size: 12px;
-    margin-left: 20px;
+    margin-right: 20px;
     background-color: #343a40;
   }
 }
@@ -49,14 +55,15 @@
 @media (max-width: 770px) {
   .navbar-brand {
     font-size: 11px;
+    margin-right: 10px;
   }
   .btn {
     font-size: 10px;
-    margin-left: 10px;
+    margin-right: 10px;
   }
   .dropdown-menu {
     font-size: 10px;
-    margin-left: 10px;
+    margin-right: 10px;
     background-color: #343a40;
   }
 }
@@ -64,49 +71,72 @@
 @media (max-width: 635px) {
   .navbar-brand {
     font-size: 10px;
+    margin-right: 6px;
   }
   .btn {
     font-size: 9px;
-    margin-left: 6px;
+    margin-right: 6px;
   }
   .dropdown-menu {
     font-size: 9px;
-    margin-left: 6px;
+    margin-right: 6px;
     background-color: #343a40;
   }
 }
 
 @media (max-width: 575px) {
   .navbar-brand {
-    font-size: 0px;
+    font-size: 9px;
   }
   .btn {
     font-size: 10px;
-    margin-left: 8px;
+    margin-right: 8px;
     border: none;
     padding: 5px;
   }
   .dropdown-menu {
     font-size: 12px;
-    margin-left: 8px;
+    margin-right: 8px;
     border: none;
     background-color: #343a40;
   }
 }
 
-@media (max-width: 450px) {
+@media (max-width: 480px) {
   .navbar-brand {
-    font-size: 0px;
+    font-size: 9px;
+    margin-left: 0px;
+    padding: 2px 4px;
+    margin-top: 4px;
   }
   .btn {
     font-size: 9px;
-    margin-left: 4px;
+    margin-right: 4px;
     border: none;
     padding: 2px 4px;
   }
   .dropdown-menu {
     font-size: 10px;
-    margin-left: 4px;
+    margin-right: 4px;
+    border: none;
+    background-color: #343a40;
+  }
+}
+
+@media (max-width: 400px) {
+  .navbar-brand {
+    font-size: 8px;
+    margin-top: 4px;
+  }
+  .btn {
+    font-size: 8px;
+    margin-right: 3px;
+    border: none;
+    padding: 2px 3px;
+  }
+  .dropdown-menu {
+    font-size: 10px;
+    margin-right: 3px;
     border: none;
     background-color: #343a40;
   }
