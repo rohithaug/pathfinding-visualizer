@@ -56,6 +56,8 @@ class PathfindingVisualizer extends Component {
     height: window.innerHeight,
     numRows: initialNumRows,
     numColumns: initialNumColumns,
+    speed: 10,
+    mazeSpeed: 10,
   };
 
   updateDimensions = () => {
@@ -63,6 +65,10 @@ class PathfindingVisualizer extends Component {
       width: window.innerWidth,
       height: window.innerHeight,
     });
+  };
+
+  updateSpeed = (path, maze) => {
+    this.setState({ speed: path, mazeSpeed: maze });
   };
 
   componentDidMount() {
@@ -145,7 +151,7 @@ class PathfindingVisualizer extends Component {
             visitedNodesInOrder
           );
           this.setState({ grid: newGrid, visualizingAlgorithm: false });
-        }, i * 30);
+        }, i * (3 * this.state.speed));
         return;
       }
       let node = nodesInShortestPathOrder[i];
@@ -153,7 +159,7 @@ class PathfindingVisualizer extends Component {
         //shortest path node
         document.getElementById(`node-${node.row}-${node.col}`).className =
           "node node-shortest-path";
-      }, i * 30);
+      }, i * (3 * this.state.speed));
     }
   };
 
@@ -177,14 +183,14 @@ class PathfindingVisualizer extends Component {
             nodesInShortestPathOrder,
             visitedNodesInOrder
           );
-        }, i * 10);
+        }, i * this.state.speed);
         return;
       }
       setTimeout(() => {
         //visited node
         document.getElementById(`node-${node.row}-${node.col}`).className =
           "node node-visited";
-      }, i * 10);
+      }, i * this.state.speed);
     }
   };
 
@@ -193,7 +199,7 @@ class PathfindingVisualizer extends Component {
       if (i === visitedNodesInOrder.length) {
         setTimeout(() => {
           this.setState({ visualizingAlgorithm: false });
-        }, i * 10);
+        }, i * this.state.speed);
         return;
       }
       let node = visitedNodesInOrder[i];
@@ -202,14 +208,14 @@ class PathfindingVisualizer extends Component {
           //finish node
           document.getElementById(`node-${node.row}-${node.col}`).className =
             "node node-finish-reached";
-        }, i * 10);
+        }, i * this.state.speed);
         continue;
       }
       setTimeout(() => {
         //visited node
         document.getElementById(`node-${node.row}-${node.col}`).className =
           "node node-visited";
-      }, i * 10);
+      }, i * this.state.speed);
     }
   };
 
@@ -240,7 +246,7 @@ class PathfindingVisualizer extends Component {
           } else {
             this.setState({ visualizingAlgorithm: false });
           }
-        }, i * 10);
+        }, i * this.state.speed);
         return;
       }
       setTimeout(() => {
@@ -251,7 +257,7 @@ class PathfindingVisualizer extends Component {
         if (nodeB !== undefined)
           document.getElementById(`node-${nodeB.row}-${nodeB.col}`).className =
             "node node-visited";
-      }, i * 10);
+      }, i * this.state.speed);
     }
   }
 
@@ -269,7 +275,7 @@ class PathfindingVisualizer extends Component {
         finishNode
       );
       this.animateAlgorithm(visitedNodesInOrder, nodesInShortestPathOrder);
-    }, 10);
+    }, this.state.speed);
   }
 
   visualizeAStar() {
@@ -286,7 +292,7 @@ class PathfindingVisualizer extends Component {
         finishNode
       );
       this.animateAlgorithm(visitedNodesInOrder, nodesInShortestPathOrder);
-    }, 10);
+    }, this.state.speed);
   }
 
   visualizeBFS() {
@@ -307,7 +313,7 @@ class PathfindingVisualizer extends Component {
         finishNode
       );
       this.animateAlgorithm(visitedNodesInOrder, nodesInShortestPathOrder);
-    }, 10);
+    }, this.state.speed);
   }
 
   visualizeDFS() {
@@ -324,7 +330,7 @@ class PathfindingVisualizer extends Component {
         finishNode
       );
       this.animateAlgorithm(visitedNodesInOrder, nodesInShortestPathOrder);
-    }, 10);
+    }, this.state.speed);
   }
 
   visualizeRandomWalk() {
@@ -338,7 +344,7 @@ class PathfindingVisualizer extends Component {
       const finishNode = grid[finishNodeRow][finishNodeCol];
       const visitedNodesInOrder = randomWalk(grid, startNode, finishNode);
       this.animateRandomWalk(visitedNodesInOrder);
-    }, 10);
+    }, this.state.speed);
   }
 
   visualizeGreedyBFS() {
@@ -355,7 +361,7 @@ class PathfindingVisualizer extends Component {
         finishNode
       );
       this.animateAlgorithm(visitedNodesInOrder, nodesInShortestPathOrder);
-    }, 10);
+    }, this.state.speed);
   }
 
   visualizeBidirectionalBFS() {
@@ -381,7 +387,7 @@ class PathfindingVisualizer extends Component {
         nodesInShortestPathOrder,
         isShortedPath
       );
-    }, 10);
+    }, this.state.speed);
   }
 
   animateMaze = (walls) => {
@@ -391,7 +397,7 @@ class PathfindingVisualizer extends Component {
           this.clearGrid();
           let newGrid = getNewGridWithMaze(this.state.grid, walls);
           this.setState({ grid: newGrid, generatingMaze: false });
-        }, i * 10);
+        }, i * this.state.mazeSpeed);
         return;
       }
       let wall = walls[i];
@@ -400,7 +406,7 @@ class PathfindingVisualizer extends Component {
         //Walls
         document.getElementById(`node-${node.row}-${node.col}`).className =
           "node node-wall-animated";
-      }, i * 10);
+      }, i * this.state.mazeSpeed);
     }
   };
 
@@ -415,7 +421,7 @@ class PathfindingVisualizer extends Component {
       const finishNode = grid[finishNodeRow][finishNodeCol];
       const walls = randomMaze(grid, startNode, finishNode);
       this.animateMaze(walls);
-    }, 10);
+    }, this.state.mazeSpeed);
   }
 
   generateRecursiveDivisionMaze() {
@@ -429,7 +435,7 @@ class PathfindingVisualizer extends Component {
       const finishNode = grid[finishNodeRow][finishNodeCol];
       const walls = recursiveDivisionMaze(grid, startNode, finishNode);
       this.animateMaze(walls);
-    }, 10);
+    }, this.state.mazeSpeed);
   }
 
   generateVerticalMaze() {
@@ -443,7 +449,7 @@ class PathfindingVisualizer extends Component {
       const finishNode = grid[finishNodeRow][finishNodeCol];
       const walls = verticalMaze(grid, startNode, finishNode);
       this.animateMaze(walls);
-    }, 10);
+    }, this.state.mazeSpeed);
   }
 
   generateHorizontalMaze() {
@@ -457,7 +463,7 @@ class PathfindingVisualizer extends Component {
       const finishNode = grid[finishNodeRow][finishNodeCol];
       const walls = horizontalMaze(grid, startNode, finishNode);
       this.animateMaze(walls);
-    }, 10);
+    }, this.state.mazeSpeed);
   }
 
   render() {
@@ -482,6 +488,7 @@ class PathfindingVisualizer extends Component {
           generateHorizontalMaze={this.generateHorizontalMaze.bind(this)}
           clearGrid={this.clearGrid.bind(this)}
           clearPath={this.clearPath.bind(this)}
+          updateSpeed={this.updateSpeed.bind(this)}
         />
         <div
           className={
@@ -557,21 +564,19 @@ function getInitialNum(width, height) {
 }
 
 function getRandomNums(num) {
-  num -= 10;
   let randomNums1 = [];
-  let temp = 3;
-  for (let i = 5; i < num / 2; i++) {
+  let temp = 2;
+  for (let i = 5; i < num / 2; i += 2) {
     randomNums1.push(temp);
-    temp += 1;
+    temp += 2;
   }
   let randomNums2 = [];
-  temp = -3;
-  for (let i = num / 2; i < num - 5; i++) {
+  temp = -2;
+  for (let i = num / 2; i < num - 5; i += 2) {
     randomNums2.push(temp);
-    temp -= 1;
+    temp -= 2;
   }
-  if (Math.random() > 0.5) return [randomNums1, randomNums2];
-  else return [randomNums2, randomNums1];
+  return [randomNums1, randomNums2];
 }
 
 function getStartFinishNode(numRows, numColumns) {
@@ -586,25 +591,28 @@ function getStartFinishNode(numRows, numColumns) {
     randomNums = getRandomNums(numRows);
     x = Math.floor(numRows / 2);
     y = Math.floor(numColumns / 4);
+    if (x % 2 !== 0) x -= 1;
+    if (y % 2 !== 0) y += 1;
     startNodeRow =
-      x + randomNums[0][Math.floor(Math.random() * randomNums[0].length)];
-    startNodeCol = y + [-3, -2, -1, 0][Math.floor(Math.random() * 4)];
-    finishNodeRow =
       x + randomNums[1][Math.floor(Math.random() * randomNums[1].length)];
+    startNodeCol = y + [-6, -4, -2, 0][Math.floor(Math.random() * 4)];
+    finishNodeRow =
+      x + randomNums[0][Math.floor(Math.random() * randomNums[0].length)];
     finishNodeCol =
-      numColumns - y + [0, 1, 2, 3][Math.floor(Math.random() * 4)];
+      numColumns - y + [0, 2, 4, 6][Math.floor(Math.random() * 4)];
   } else {
     randomNums = getRandomNums(numColumns);
     x = Math.floor(numRows / 4);
     y = Math.floor(numColumns / 2);
-    startNodeRow = x + [-3, -2, -1, 0][Math.floor(Math.random() * 4)];
+    if (x % 2 !== 0) x -= 1;
+    if (y % 2 !== 0) y += 1;
+    startNodeRow = x + [-6, -4, -2, 0][Math.floor(Math.random() * 4)];
     startNodeCol =
-      y + randomNums[0][Math.floor(Math.random() * randomNums[0].length)];
-    finishNodeRow = numRows - x + [0, 1, 2, 3][Math.floor(Math.random() * 4)];
-    finishNodeCol =
       y + randomNums[1][Math.floor(Math.random() * randomNums[1].length)];
+    finishNodeRow = numRows - x + [0, 2, 4, 6][Math.floor(Math.random() * 4)];
+    finishNodeCol =
+      y + randomNums[0][Math.floor(Math.random() * randomNums[0].length)];
   }
-  console.log(randomNums);
   return [startNodeRow, startNodeCol, finishNodeRow, finishNodeCol];
 }
 

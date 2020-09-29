@@ -9,6 +9,7 @@ class NavBar extends Component {
     maze: "Generate Maze",
     pathState: false,
     mazeState: false,
+    speedState: "Speed",
   };
 
   selectAlgorithm(selection) {
@@ -137,6 +138,18 @@ class NavBar extends Component {
       pathState: false,
       mazeState: false,
     });
+  }
+
+  changeSpeed(speed) {
+    if (this.props.visualizingAlgorithm || this.props.generatingMaze) {
+      return;
+    }
+    let value = [10, 10];
+    if (speed === "Slow") value = [50, 30];
+    else if (speed === "Medium") value = [25, 20];
+    else if (speed === "Fast") value = [10, 10];
+    this.setState({ speedState: speed });
+    this.props.updateSpeed(value[0], value[1]);
   }
 
   render() {
@@ -294,6 +307,43 @@ class NavBar extends Component {
               >
                 Clear Gird
               </button>
+            </li>
+            <li className="nav-item dropdown">
+              <div className="dropdown">
+                <button
+                  className="btn btn-info dropdown-toggle"
+                  type="button"
+                  id="dropdownMenu1"
+                  data-toggle="dropdown"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                >
+                  {this.state.speedState}
+                </button>
+                <div className="dropdown-menu" aria-labelledby="dropdownMenu1">
+                  <button
+                    className="dropdown-item btn-light"
+                    type="button"
+                    onClick={() => this.changeSpeed("Slow")}
+                  >
+                    Slow
+                  </button>
+                  <button
+                    className="dropdown-item btn-light"
+                    type="button"
+                    onClick={() => this.changeSpeed("Medium")}
+                  >
+                    Medium
+                  </button>
+                  <button
+                    className="dropdown-item btn-light"
+                    type="button"
+                    onClick={() => this.changeSpeed("Fast")}
+                  >
+                    Fast
+                  </button>
+                </div>
+              </div>{" "}
             </li>
           </ul>
         </div>
