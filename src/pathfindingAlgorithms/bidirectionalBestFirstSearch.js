@@ -32,6 +32,7 @@ export function bidirectionalBFS(grid, startNode, finishNode) {
     let neighbours = getNeighbours(closestNodeStart, grid);
     for (let neighbour of neighbours) {
       if (!neighbourNotInUnvisitedNodes(neighbour, unvisitedNodesFinish)) {
+        visitedNodesInOrderStart.push(closestNodeStart);
         visitedNodesInOrderFinish.push(neighbour);
         return [visitedNodesInOrderStart, visitedNodesInOrderFinish, true];
       }
@@ -53,6 +54,7 @@ export function bidirectionalBFS(grid, startNode, finishNode) {
     neighbours = getNeighbours(closestNodeFinish, grid);
     for (let neighbour of neighbours) {
       if (!neighbourNotInUnvisitedNodes(neighbour, unvisitedNodesStart)) {
+        visitedNodesInOrderStart.push(closestNodeFinish);
         visitedNodesInOrderStart.push(neighbour);
         return [visitedNodesInOrderStart, visitedNodesInOrderFinish, true];
       }
