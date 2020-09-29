@@ -6,7 +6,7 @@ Graphical User Interface built using React Framework to visualize Pathfinding Al
 1. Dijkstra's Algorithm
 2. A* Algorithm
 3. Greedy Best First Search
-4. Bidirectional Best First Search
+4. Bidirectional Greedy Search
 5. Breadth First Search
 6. Depth First Search
 7. Random Walk
