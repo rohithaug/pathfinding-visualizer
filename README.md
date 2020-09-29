@@ -7,7 +7,7 @@ Graphical User Interface built using React Framework to visualize Pathfinding Al
 ## Sample (Dijkstra's Algorithm with Recursive Division Maze): 
 
 <p align="center">
-  <img src="sample.gif" width="800">
+  <img src="sample.gif" width="880">
 </p>
 
 ## Pathfinding Algorithms:
