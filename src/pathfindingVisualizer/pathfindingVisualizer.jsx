@@ -34,6 +34,7 @@ import {
 import { randomMaze } from "../mazeAlgorithms/randomMaze";
 import { recursiveDivisionMaze } from "../mazeAlgorithms/recursiveDivision";
 import { verticalMaze } from "../mazeAlgorithms/verticalMaze";
+import { horizontalMaze } from "../mazeAlgorithms/horizontalMaze";
 
 const initialNum = getInitialNum(window.innerWidth, window.innerHeight);
 const initialNumRows = initialNum[0];
@@ -227,8 +228,15 @@ class PathfindingVisualizer extends Component {
       let nodeB = visitedNodesInOrderFinish[i];
       if (i === visitedNodesInOrderStart.length) {
         setTimeout(() => {
+          let visitedNodesInOrder = getVisitedNodesInOrder(
+            visitedNodesInOrderStart,
+            visitedNodesInOrderFinish
+          );
           if (isShortedPath) {
-            this.animateShortestPath(nodesInShortestPathOrder);
+            this.animateShortestPath(
+              nodesInShortestPathOrder,
+              visitedNodesInOrder
+            );
           } else {
             this.setState({ visualizingAlgorithm: false });
           }
@@ -328,10 +336,7 @@ class PathfindingVisualizer extends Component {
       const { grid } = this.state;
       const startNode = grid[startNodeRow][startNodeCol];
       const finishNode = grid[finishNodeRow][finishNodeCol];
-      const temp = randomWalk(grid, startNode, finishNode);
-      const visitedNodesInOrder = temp[0];
-      const pathExist = temp[1];
-      //if (!pathExist) console.log("No Path");
+      const visitedNodesInOrder = randomWalk(grid, startNode, finishNode);
       this.animateRandomWalk(visitedNodesInOrder);
     }, 10);
   }
@@ -441,6 +446,20 @@ class PathfindingVisualizer extends Component {
     }, 10);
   }
 
+  generateHorizontalMaze() {
+    if (this.state.visualizingAlgorithm || this.state.generatingMaze) {
+      return;
+    }
+    this.setState({ generatingMaze: true });
+    setTimeout(() => {
+      const { grid } = this.state;
+      const startNode = grid[startNodeRow][startNodeCol];
+      const finishNode = grid[finishNodeRow][finishNodeCol];
+      const walls = horizontalMaze(grid, startNode, finishNode);
+      this.animateMaze(walls);
+    }, 10);
+  }
+
   render() {
     let { grid } = this.state;
     return (
@@ -460,6 +479,7 @@ class PathfindingVisualizer extends Component {
             this
           )}
           generateVerticalMaze={this.generateVerticalMaze.bind(this)}
+          generateHorizontalMaze={this.generateHorizontalMaze.bind(this)}
           clearGrid={this.clearGrid.bind(this)}
           clearPath={this.clearPath.bind(this)}
         />
@@ -536,16 +556,55 @@ function getInitialNum(width, height) {
   return [numRows, numColumns];
 }
 
+function getRandomNums(num) {
+  num -= 10;
+  let randomNums1 = [];
+  let temp = 3;
+  for (let i = 5; i < num / 2; i++) {
+    randomNums1.push(temp);
+    temp += 1;
+  }
+  let randomNums2 = [];
+  temp = -3;
+  for (let i = num / 2; i < num - 5; i++) {
+    randomNums2.push(temp);
+    temp -= 1;
+  }
+  if (Math.random() > 0.5) return [randomNums1, randomNums2];
+  else return [randomNums2, randomNums1];
+}
+
 function getStartFinishNode(numRows, numColumns) {
-  let x = Math.floor(numRows / 2);
-  let y = Math.floor(numColumns / 4);
-  console.log(x, y, x, numColumns - y);
-  let randomNums = [-3, -2, -1, 0, 1, 2, 3];
-  const startNodeRow = x + randomNums[Math.floor(Math.random() * 7)];
-  const startNodeCol = y + [-3, -2, -1, 0][Math.floor(Math.random() * 4)];
-  const finishNodeRow = x + randomNums[Math.floor(Math.random() * 7)];
-  const finishNodeCol =
-    numColumns - y + [0, 1, 2, 3][Math.floor(Math.random() * 4)];
+  let randomNums;
+  let x;
+  let y;
+  let startNodeRow;
+  let startNodeCol;
+  let finishNodeRow;
+  let finishNodeCol;
+  if (numRows < numColumns) {
+    randomNums = getRandomNums(numRows);
+    x = Math.floor(numRows / 2);
+    y = Math.floor(numColumns / 4);
+    startNodeRow =
+      x + randomNums[0][Math.floor(Math.random() * randomNums[0].length)];
+    startNodeCol = y + [-3, -2, -1, 0][Math.floor(Math.random() * 4)];
+    finishNodeRow =
+      x + randomNums[1][Math.floor(Math.random() * randomNums[1].length)];
+    finishNodeCol =
+      numColumns - y + [0, 1, 2, 3][Math.floor(Math.random() * 4)];
+  } else {
+    randomNums = getRandomNums(numColumns);
+    x = Math.floor(numRows / 4);
+    y = Math.floor(numColumns / 2);
+    startNodeRow = x + [-3, -2, -1, 0][Math.floor(Math.random() * 4)];
+    startNodeCol =
+      y + randomNums[0][Math.floor(Math.random() * randomNums[0].length)];
+    finishNodeRow = numRows - x + [0, 1, 2, 3][Math.floor(Math.random() * 4)];
+    finishNodeCol =
+      y + randomNums[1][Math.floor(Math.random() * randomNums[1].length)];
+  }
+  console.log(randomNums);
   return [startNodeRow, startNodeCol, finishNodeRow, finishNodeCol];
 }
 
@@ -649,6 +708,26 @@ const updateNodesForRender = (
   }
 };
 
+const getVisitedNodesInOrder = (
+  visitedNodesInOrderStart,
+  visitedNodesInOrderFinish
+) => {
+  let visitedNodesInOrder = [];
+  let n = Math.max(
+    visitedNodesInOrderStart.length,
+    visitedNodesInOrderFinish.length
+  );
+  for (let i = 0; i < n; i++) {
+    if (visitedNodesInOrderStart[i] !== undefined) {
+      visitedNodesInOrder.push(visitedNodesInOrderStart[i]);
+    }
+    if (visitedNodesInOrderFinish[i] !== undefined) {
+      visitedNodesInOrder.push(visitedNodesInOrderFinish[i]);
+    }
+  }
+  return visitedNodesInOrder;
+};
+
 export default PathfindingVisualizer;
 
 /* <button className="button" onClick={() => this.visualizeDijkstra()}>
@@ -702,5 +781,12 @@ className="button"
 onClick={() => this.generateVerticalMaze()}
 >
 Vertical Maze
+</button>
+&nbsp;
+<button
+className="button"
+onClick={() => this.generateHorizontalMaze()}
+>
+Horizontal Maze
 </button>
  */

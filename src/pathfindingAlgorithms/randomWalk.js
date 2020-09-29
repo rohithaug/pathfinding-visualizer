@@ -10,11 +10,11 @@ export function randomWalk(grid, startNode, finishNode) {
   while (true) {
     closestNode.isVisited = true;
     visitedNodesInOrder.push(closestNode);
-    if (closestNode === finishNode) return [visitedNodesInOrder, true];
+    if (closestNode === finishNode) return visitedNodesInOrder;
     let randomNeighbour = getRandomNeighbour(closestNode, grid, finishNode);
     let nodesVisited = numNodesVisited(grid);
     if (nodesVisited === maxNodes - 2) {
-      return [visitedNodesInOrder, false];
+      return visitedNodesInOrder;
     }
     if (nodesVisited > maxNodesVisitedTracker) {
       maxNodesVisitedTracker = nodesVisited;
@@ -22,7 +22,7 @@ export function randomWalk(grid, startNode, finishNode) {
     } else if ((nodesVisited = maxNodesVisitedTracker)) {
       loopTracker += 1;
       if (loopTracker > 1000) {
-        return [visitedNodesInOrder, false];
+        return visitedNodesInOrder;
       }
     }
     randomNeighbour.previousNode = closestNode;

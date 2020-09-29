@@ -78,50 +78,35 @@
 
 @media (max-width: 575px) {
   .navbar-brand {
-    font-size: 9px;
+    font-size: 0px;
   }
   .btn {
-    font-size: 8px;
-    margin-left: 5px;
+    font-size: 10px;
+    margin-left: 8px;
     border: none;
+    padding: 5px;
   }
   .dropdown-menu {
-    font-size: 8px;
+    font-size: 12px;
+    margin-left: 8px;
+    border: none;
+    background-color: #343a40;
+  }
+}
+
+@media (max-width: 450px) {
+  .navbar-brand {
+    font-size: 0px;
+  }
+  .btn {
+    font-size: 9px;
     margin-left: 4px;
     border: none;
-    background-color: #343a40;
-  }
-}
-
-@media (max-width: 510px) {
-  .navbar-brand {
-    font-size: 7px;
-  }
-  .btn {
-    font-size: 7px;
-    margin-left: 3px;
-    border: none;
+    padding: 2px 4px;
   }
   .dropdown-menu {
-    font-size: 7px;
-    margin-left: 3px;
-    border: none;
-    background-color: #343a40;
-  }
-}
-
-@media (max-width: 475px) {
-  .navbar-brand {
-    font-size: 7px;
-  }
-  .btn {
-    font-size: 6px;
-    margin-left: 2px;
-    border: none;
-  }
-  .dropdown-menu {
-    font-size: 6px;
-    margin-left: 2px;
+    font-size: 10px;
+    margin-left: 4px;
     border: none;
     background-color: #343a40;
   }

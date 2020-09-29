@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import "./navbar.css";
 
+const brand = window.innerWidth > 600 ? "Pathfinding Visualizer" : "";
+
 class NavBar extends Component {
   state = {
     algorithm: "Visualize Algorithm",
@@ -10,7 +12,7 @@ class NavBar extends Component {
   };
 
   selectAlgorithm(selection) {
-    if (this.props.visualizingAlgorithm || this.props.generatingMaze) {
+    if (this.props.visualizingAlgorithm) {
       return;
     }
     if (
@@ -64,11 +66,9 @@ class NavBar extends Component {
         this.props.visualizeDijkstra();
       else if (this.state.algorithm === "Visualize A*")
         this.props.visualizeAStar();
-      else if (this.state.algorithm === "Visualize Greedy Best First Search")
+      else if (this.state.algorithm === "Visualize Greedy BFS")
         this.props.visualizeGreedyBFS();
-      else if (
-        this.state.algorithm === "Visualize Bidirectional Best First Search"
-      )
+      else if (this.state.algorithm === "Visualize Bidirectional BFS")
         this.props.visualizeBidirectionalBFS();
       else if (this.state.algorithm === "Visualize Breadth First Search")
         this.props.visualizeBFS();
@@ -95,10 +95,12 @@ class NavBar extends Component {
       this.setState({ mazeState: true });
       if (this.state.maze === "Generate Random Maze")
         this.props.generateRandomMaze();
-      else if (this.state.maze === "Generate Recursive Division Maze")
+      else if (this.state.maze === "Generate Recursive Maze")
         this.props.generateRecursiveDivisionMaze();
-      else if (this.state.maze === "Generate Vertical Division Maze")
+      else if (this.state.maze === "Generate Vertical Maze")
         this.props.generateVerticalMaze();
+      else if (this.state.maze === "Generate Horizontal Maze")
+        this.props.generateHorizontalMaze();
     }
   }
 
@@ -139,12 +141,12 @@ class NavBar extends Component {
 
   render() {
     return (
-      <nav className="navbar navbar-expand-sm navbar-dark bg-dark">
+      <nav className="navbar navbar-expand navbar-dark bg-dark">
         <a
           className="navbar-brand h1 mb-0"
           href="https://rohithaug.github.io/pathfinding-visualizer/"
         >
-          Pathfinding Visualizer
+          {brand}
         </a>
         <div className="navbar-collapse" id="navbarNavDropdown">
           <ul className="navbar-nav">
@@ -178,9 +180,7 @@ class NavBar extends Component {
                   <button
                     className="dropdown-item btn-light"
                     type="button"
-                    onClick={() =>
-                      this.selectAlgorithm("Visualize Greedy Best First Search")
-                    }
+                    onClick={() => this.selectAlgorithm("Visualize Greedy BFS")}
                   >
                     Greedy Best First Search
                   </button>
@@ -188,9 +188,7 @@ class NavBar extends Component {
                     className="dropdown-item btn-light"
                     type="button"
                     onClick={() =>
-                      this.selectAlgorithm(
-                        "Visualize Bidirectional Best First Search"
-                      )
+                      this.selectAlgorithm("Visualize Bidirectional BFS")
                     }
                   >
                     Bidirectional Best First Search
@@ -229,7 +227,7 @@ class NavBar extends Component {
             <li>
               <button
                 type="button"
-                className="btn btn-primary btn-success"
+                className="btn btn-success"
                 onClick={() => this.visualizeAlgorithm()}
               >
                 {this.state.algorithm}
@@ -258,20 +256,23 @@ class NavBar extends Component {
                   <button
                     className="dropdown-item btn-light"
                     type="button"
-                    onClick={() =>
-                      this.selectMaze("Generate Recursive Division Maze")
-                    }
+                    onClick={() => this.selectMaze("Generate Recursive Maze")}
                   >
                     Recursive Division Maze
                   </button>
                   <button
                     className="dropdown-item btn-light"
                     type="button"
-                    onClick={() =>
-                      this.selectMaze("Generate Vertical Division Maze")
-                    }
+                    onClick={() => this.selectMaze("Generate Vertical Maze")}
                   >
                     Vertical Division Maze
+                  </button>
+                  <button
+                    className="dropdown-item btn-light"
+                    type="button"
+                    onClick={() => this.selectMaze("Generate Horizontal Maze")}
+                  >
+                    Horizontal Division Maze
                   </button>
                 </div>
               </div>{" "}
@@ -279,7 +280,7 @@ class NavBar extends Component {
             <li>
               <button
                 type="button"
-                className="btn btn-primary btn-success"
+                className="btn btn-success"
                 onClick={() => this.generateMaze()}
               >
                 {this.state.maze}
