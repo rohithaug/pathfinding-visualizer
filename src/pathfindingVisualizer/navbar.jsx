@@ -69,10 +69,10 @@ class NavBar extends Component {
         this.props.visualizeAStar();
       else if (this.state.algorithm === "Visualize Greedy BFS")
         this.props.visualizeGreedyBFS();
-      else if (this.state.algorithm === "Visualize Bidirectional BFS")
-        this.props.visualizeBidirectionalBFS();
+      else if (this.state.algorithm === "Visualize Bidirectional Greedy")
+        this.props.visualizeBidirectionalGreedySearch();
       else if (this.state.algorithm === "Visualize Breadth First Search")
-        this.props.visualizeBFS();
+        this.propGreedyeBFS();
       else if (this.state.algorithm === "Visualize Depth First Search")
         this.props.visualizeDFS();
       else if (this.state.algorithm === "Visualize Random Walk")
@@ -201,10 +201,10 @@ class NavBar extends Component {
                     className="dropdown-item btn-light"
                     type="button"
                     onClick={() =>
-                      this.selectAlgorithm("Visualize Bidirectional BFS")
+                      this.selectAlgorithm("Visualize Bidirectional Greedy")
                     }
                   >
-                    Bidirectional Best First Search
+                    Bidirectional Greedy Search
                   </button>
                   <div className="dropdown-divider"></div>
                   <button

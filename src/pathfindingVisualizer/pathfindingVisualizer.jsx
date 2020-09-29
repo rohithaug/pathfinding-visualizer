@@ -26,15 +26,20 @@ import {
   getNodesInShortestPathOrderGreedyBFS,
 } from "../pathfindingAlgorithms/greedyBestFirstSearch";
 import {
-  bidirectionalBFS,
-  getNodesInShortestPathOrderBidirectionalBFS,
-} from "../pathfindingAlgorithms/bidirectionalBestFirstSearch";
+  bidirectionalGreedySearch,
+  getNodesInShortestPathOrderBidirectionalGreedySearch,
+} from "../pathfindingAlgorithms/bidirectionalGreedySearch";
 
 //Maze Algorithms
 import { randomMaze } from "../mazeAlgorithms/randomMaze";
 import { recursiveDivisionMaze } from "../mazeAlgorithms/recursiveDivision";
 import { verticalMaze } from "../mazeAlgorithms/verticalMaze";
 import { horizontalMaze } from "../mazeAlgorithms/horizontalMaze";
+
+//Google Analytics
+import ReactGA from "react-ga";
+ReactGA.initialize("UA-179230150-1");
+ReactGA.pageview(window.location.pathname + window.location.search);
 
 const initialNum = getInitialNum(window.innerWidth, window.innerHeight);
 const initialNumRows = initialNum[0];
@@ -364,7 +369,7 @@ class PathfindingVisualizer extends Component {
     }, this.state.speed);
   }
 
-  visualizeBidirectionalBFS() {
+  visualizeBidirectionalGreedySearch() {
     if (this.state.visualizingAlgorithm || this.state.generatingMaze) {
       return;
     }
@@ -373,11 +378,15 @@ class PathfindingVisualizer extends Component {
       const { grid } = this.state;
       const startNode = grid[startNodeRow][startNodeCol];
       const finishNode = grid[finishNodeRow][finishNodeCol];
-      const visitedNodesInOrder = bidirectionalBFS(grid, startNode, finishNode);
+      const visitedNodesInOrder = bidirectionalGreedySearch(
+        grid,
+        startNode,
+        finishNode
+      );
       const visitedNodesInOrderStart = visitedNodesInOrder[0];
       const visitedNodesInOrderFinish = visitedNodesInOrder[1];
       const isShortedPath = visitedNodesInOrder[2];
-      const nodesInShortestPathOrder = getNodesInShortestPathOrderBidirectionalBFS(
+      const nodesInShortestPathOrder = getNodesInShortestPathOrderBidirectionalGreedySearch(
         visitedNodesInOrderStart[visitedNodesInOrderStart.length - 1],
         visitedNodesInOrderFinish[visitedNodesInOrderFinish.length - 1]
       );
@@ -476,7 +485,9 @@ class PathfindingVisualizer extends Component {
           visualizeDijkstra={this.visualizeDijkstra.bind(this)}
           visualizeAStar={this.visualizeAStar.bind(this)}
           visualizeGreedyBFS={this.visualizeGreedyBFS.bind(this)}
-          visualizeBidirectionalBFS={this.visualizeBidirectionalBFS.bind(this)}
+          visualizeBidirectionalGreedySearch={this.visualizeBidirectionalGreedySearch.bind(
+            this
+          )}
           visualizeBFS={this.visualizeBFS.bind(this)}
           visualizeDFS={this.visualizeDFS.bind(this)}
           visualizeRandomWalk={this.visualizeRandomWalk.bind(this)}
@@ -768,7 +779,7 @@ Greedy Best First Search
 &nbsp;
 <button
 className="button"
-onClick={() => this.visualizeBidirectionalBFS()}
+onClick={() => this.visualizeBidirectionalGreedySearch()}
 >
 Bidirectional Best First Search
 </button>

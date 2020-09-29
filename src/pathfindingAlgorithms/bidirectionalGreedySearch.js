@@ -1,4 +1,4 @@
-export function bidirectionalBFS(grid, startNode, finishNode) {
+export function bidirectionalGreedySearch(grid, startNode, finishNode) {
   if (!startNode || !finishNode || startNode === finishNode) {
     return false;
   }
@@ -114,7 +114,10 @@ function neighbourNotInUnvisitedNodes(neighbour, unvisitedNodes) {
   return true;
 }
 
-export function getNodesInShortestPathOrderBidirectionalBFS(nodeA, nodeB) {
+export function getNodesInShortestPathOrderBidirectionalGreedySearch(
+  nodeA,
+  nodeB
+) {
   let nodesInShortestPathOrder = [];
   let currentNode = nodeB;
   while (currentNode !== null) {
