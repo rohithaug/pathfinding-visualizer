@@ -72,7 +72,7 @@ class NavBar extends Component {
       else if (this.state.algorithm === "Visualize Bidirectional Greedy")
         this.props.visualizeBidirectionalGreedySearch();
       else if (this.state.algorithm === "Visualize Breadth First Search")
-        this.propGreedyeBFS();
+        this.props.visualizeBFS();
       else if (this.state.algorithm === "Visualize Depth First Search")
         this.props.visualizeDFS();
       else if (this.state.algorithm === "Visualize Random Walk")
