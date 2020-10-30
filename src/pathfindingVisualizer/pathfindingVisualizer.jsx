@@ -36,11 +36,6 @@ import { recursiveDivisionMaze } from "../mazeAlgorithms/recursiveDivision";
 import { verticalMaze } from "../mazeAlgorithms/verticalMaze";
 import { horizontalMaze } from "../mazeAlgorithms/horizontalMaze";
 
-//Google Analytics
-import ReactGA from "react-ga";
-ReactGA.initialize("UA-179230150-1");
-ReactGA.pageview(window.location.pathname + window.location.search);
-
 const initialNum = getInitialNum(window.innerWidth, window.innerHeight);
 const initialNumRows = initialNum[0];
 const initialNumColumns = initialNum[1];
